@@ -1,27 +1,33 @@
-/* 1. Normal Mode Inversion */
+/* 1. Global Inversion */
 html.dark-mode {
     filter: invert(1) hue-rotate(180deg) !important;
     background-color: #fff !important;
 }
 
-/* 2. Standard Counter-Flip for media */
+/* 2. Media Counter-Flip */
 html.dark-mode img, 
 html.dark-mode video, 
-html.dark-mode .bpx-player-container {
+html.dark-mode .bpx-player-container,
+html.dark-mode [style*="background-image"] {
     filter: invert(1) hue-rotate(180deg) !important;
 }
 
-/* 3. THE FULLSCREEN FIX: 
-   When the player goes fullscreen, we remove the filters 
-   to prevent the "Double Inversion" bug. */
-html.dark-mode :fullscreen,
+/* 3. THE BANNER FIX: Protect the hero/title sections from inversion */
+html.dark-mode .channel-layout__top,
+html.dark-mode .v-img,
+html.dark-mode .banner-card,
+html.dark-mode .header-banner,
+html.dark-mode .recommended-swipe {
+    filter: invert(1) hue-rotate(180deg) !important; /* Flip them back to normal */
+}
+
+/* 4. Fullscreen Fix */
+html.dark-mode :fullscreen, 
 html.dark-mode :-webkit-full-screen,
 html.dark-mode .bilibili-player-video-wrap {
     filter: none !important;
 }
 
-/* Ensure the video itself doesn't stay inverted inside the fullscreen container */
-html.dark-mode :fullscreen video,
-html.dark-mode :-webkit-full-screen video {
+html.dark-mode :fullscreen video {
     filter: none !important;
 }
